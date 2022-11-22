@@ -1,7 +1,7 @@
 # STORESERVICES
-Servicio de compra de libros.
-Cada servicio contiene su capa (MODEL, DAO, SERVICES, API)
-El api gateway es con ocelot
+>Servicio de compra de libros.
+>Cada servicio contiene su capa (MODEL, DAO, SERVICES, API)
+>El api gateway es con ocelot
 
 # STORESERVICES.API.AUTHOR
 Servicio que puede crear, obtener por AutorLibroGuid y obtener todos los autores 
