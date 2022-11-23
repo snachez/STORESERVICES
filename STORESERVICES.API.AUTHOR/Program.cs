@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Serilog;
+using STORESERVICES.API.AUTHOR.Config;
 using STORESERVICES.API.AUTHOR.DAO;
 using STORESERVICES.API.AUTHOR.DAO.Data;
+using STORESERVICES.API.AUTHOR.Installers;
 using STORESERVICES.API.AUTHOR.SERVICES;
 
 namespace STORESERVICES.API.AUTHOR
@@ -10,6 +13,12 @@ namespace STORESERVICES.API.AUTHOR
     {
         public static void Main(string[] args)
         {
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(configuration).CreateLogger();
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -24,43 +33,33 @@ namespace STORESERVICES.API.AUTHOR
 
         public static void ConfigureServices(WebApplicationBuilder builder)
         {
-            builder.Services.AddSERVICESLayer();
-            builder.Services.AddDAOLayer();
-
-            builder.Services.AddControllers();
-
-            builder.Services.AddDbContext<ContextoAutor>(options =>
-            {
-                options.UseNpgsql(builder.Configuration.GetConnectionString("ConexionDatabase"));
-            });
-
-            builder.Services.AddEndpointsApiExplorer();
-
-            builder.Services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "STORESERVICES.API.AUTHOR", Version = "v1" });
-            });
+            builder.Services.InstallServicesInAssembly(builder.Configuration);
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public static void Configure(WebApplication app)
         {
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "STORESERVICES.API.AUTHOR v1"));
-            }
-
-            app.UseHttpsRedirection();
+            app.InstallConfigurationsInAssembly(app.Environment);
 
             app.UseAuthorization();
 
 
             app.MapControllers();
 
-            app.Run();
+            try
+            {
+                Log.Information("Application Starting Up.");
+                app.Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "The application failed to start correctly.");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
     }
 }
