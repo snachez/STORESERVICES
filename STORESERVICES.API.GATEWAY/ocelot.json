@@ -5,24 +5,25 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost:59300",
-          "Port": "443"
+          "Host": "localhost",
+          "Port": "59300"
         }
       ],
+      "SwaggerKey": "GetLibro",
       "UpstreamPathTemplate": "/Libro",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
-      "Key": "LibroTotal",
-      "SwaggerKey": "GetLibro"
+      "Key": "LibroTotal"
     },
     {
       "DownstreamPathTemplate": "/api/LibroMaterial/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost:59300",
-          "Port": "443"
+          "Host": "localhost",
+          "Port": "59300"
         }
       ],
+      "SwaggerKey": "GetLibro",
       "UpstreamPathTemplate": "/Libro/{id}",
       "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "DelegatingHandlers": [
@@ -30,52 +31,56 @@
       ]
     },
     {
-      "DownstreamPathTemplate": "/api/Autor",
+      "DownstreamPathTemplate": "/api/Author",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost:56162",
-          "Port": "443"
+          "Host": "localhost",
+          "Port": "56162"
         }
       ],
+      "SwaggerKey": "GetAutor",
       "UpstreamPathTemplate": "/Autor",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
       "Key": "AutorTotal"
     },
     {
-      "DownstreamPathTemplate": "/api/Autor/{id}",
+      "DownstreamPathTemplate": "/api/Author/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost:56162",
-          "Port": "443"
+          "Host": "localhost",
+          "Port": "56162"
         }
       ],
+      "SwaggerKey": "GetAutor",
       "UpstreamPathTemplate": "/Autor/{id}",
       "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "Key": "Autor"
     },
     {
-      "DownstreamPathTemplate": "/api/CarritoCompras",
+      "DownstreamPathTemplate": "/api/ShoppingCart",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost:7135",
-          "Port": "443"
+          "Host": "localhost",
+          "Port": "7135"
         }
       ],
+      "SwaggerKey": "GetCarritoCompras",
       "UpstreamPathTemplate": "/CarritoCompra",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
     },
     {
-      "DownstreamPathTemplate": "/api/CarritoCompras/{id}",
+      "DownstreamPathTemplate": "/api/ShoppingCart/{id}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost:7135",
-          "Port": "443"
+          "Host": "localhost",
+          "Port": "7135"
         }
       ],
+      "SwaggerKey": "GetCarritoCompras",
       "UpstreamPathTemplate": "/CarritoCompra/{id}",
       "UpstreamHttpMethod": [ "GET", "DELETE" ]
     }
@@ -89,14 +94,37 @@
       "UpstreamPathTemplate": "/LibroAutor"
     }
   ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7032"
+  },
   "SwaggerEndPoints": [
     {
-      "Clave": "GetLibro",
-      "Configuración": [
+      "Key": "GetLibro",
+      "Config": [
         {
-          "Nombre": "API de STORESERVICES.API.AUTHOR",
-          "Versión": "v1",
-          "Url": "http://localhost:59300/swagger/v1/swagger.json"
+          "Name": "API de STORESERVICES.API.BOOK",
+          "Version": "v1",
+          "Url": "https://localhost:59300/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "GetAutor",
+      "Config": [
+        {
+          "Name": "API de STORESERVICES.API.AUTHOR",
+          "Version": "v1",
+          "Url": "https://localhost:56162/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "GetCarritoCompras",
+      "Config": [
+        {
+          "Name": "API de STORESERVICES.API.SHOPPINGCART",
+          "Version": "v1",
+          "Url": "https://localhost:7135/swagger/v1/swagger.json"
         }
       ]
     }

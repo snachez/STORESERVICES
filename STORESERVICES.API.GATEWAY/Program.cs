@@ -25,10 +25,10 @@ namespace STORESERVICES.API.GATEWAY
         public static void ConfigureServices(WebApplicationBuilder builder)
         {
             builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
-            builder.Services.AddOcelot();
-            builder.Services.AddSwaggerForOcelot(builder.Configuration);
 
             builder.Services.AddSERVICESLayer();
+            builder.Services.AddSwaggerForOcelot(builder.Configuration);
+
             builder.Services.AddDAOLayer(builder.Configuration);
 
             builder.Services.AddEndpointsApiExplorer();
@@ -47,12 +47,14 @@ namespace STORESERVICES.API.GATEWAY
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "STORESERVICES.API.GATEWAY v1"));
             }
 
-            app.UseSwaggerForOcelotUI(opt => {
+            app.UseSwaggerForOcelotUI(opt =>
+            {
                 opt.PathToSwaggerGenerator = "/swagger/docs";
-            }).UseOcelot().Wait();
+            });
+
+            app.UseOcelot().Wait();
 
             app.UseHttpsRedirection();
 

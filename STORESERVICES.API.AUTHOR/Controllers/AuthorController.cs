@@ -8,15 +8,21 @@ namespace STORESERVICES.API.AUTHOR.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorController : BaseApiController
+    public class AuthorController : ControllerBase
     {
+        private readonly IMediator _mediator;
+        public AuthorController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Unit))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Unit))]
         [Produces("application/json")]
         [HttpPost]
         public async Task<ActionResult<Unit>> CreateAuthorBook(AuthorBook data)
         {
-            return await Mediator.Send(data);
+            return await _mediator.Send(data);
         }
 
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<AutorDto>))]
@@ -26,7 +32,7 @@ namespace STORESERVICES.API.AUTHOR.Controllers
         public async Task<ActionResult<List<AutorDto>>> GetAllAuthorBook()
         {
 
-            return await Mediator.Send(new ListaAutor());
+            return await _mediator.Send(new ListaAutor());
         }
 
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(AutorDto))]
@@ -35,7 +41,7 @@ namespace STORESERVICES.API.AUTHOR.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AutorDto>> GetAuthorBook(string id)
         {
-            return await Mediator.Send(new AutorUnico { AutorGuid = id });
+            return await _mediator.Send(new AutorUnico { AutorGuid = id });
         }
 
 
