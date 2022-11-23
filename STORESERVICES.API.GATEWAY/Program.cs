@@ -1,3 +1,9 @@
+using Microsoft.OpenApi.Models;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
+using STORESERVICES.API.GATEWAY.DAO;
+using STORESERVICES.API.GATEWAY.SERVICES;
+
 namespace STORESERVICES.API.GATEWAY
 {
     public class Program
@@ -7,20 +13,48 @@ namespace STORESERVICES.API.GATEWAY
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            ConfigureServices(builder);
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
+            Configure(app);
+
+        }
+
+        public static void ConfigureServices(WebApplicationBuilder builder)
+        {
+            builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+
+            builder.Services.AddSERVICESLayer();
+            builder.Services.AddSwaggerForOcelot(builder.Configuration);
+
+            builder.Services.AddDAOLayer(builder.Configuration);
+
+            builder.Services.AddEndpointsApiExplorer();
+
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "STORESERVICES.API.GATEWAY", Version = "v1" });
+            });
+
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public static void Configure(WebApplication app)
+        {
             if (app.Environment.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI();
             }
+
+            app.UseSwaggerForOcelotUI(opt =>
+            {
+                opt.PathToSwaggerGenerator = "/swagger/docs";
+            });
+
+            app.UseOcelot().Wait();
 
             app.UseHttpsRedirection();
 
