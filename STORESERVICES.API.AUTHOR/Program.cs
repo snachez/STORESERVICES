@@ -34,7 +34,6 @@ namespace STORESERVICES.API.AUTHOR
         public static void ConfigureServices(WebApplicationBuilder builder)
         {
             builder.Services.InstallServicesInAssembly(builder.Configuration);
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

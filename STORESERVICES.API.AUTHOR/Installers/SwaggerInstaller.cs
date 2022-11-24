@@ -18,6 +18,8 @@ namespace STORESERVICES.API.AUTHOR.Installers
 
             services.AddSwaggerGen(c =>
             {
+                c.EnableAnnotations();
+
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
@@ -39,17 +41,27 @@ namespace STORESERVICES.API.AUTHOR.Installers
                 c.IncludeXmlComments(xmlPath);
 
                 //TODO: Activar la sección de configuración.
-                //c.AddSecurityDefinition("Bearer", new OAuth2Scheme
-                //{
-                //    Type = "Bearer",
-                //    Flow = "password",
-                //    TokenUrl = Path.Combine("https://coworkingidentity.azurewebsites.net/token"),
-                //    // Optional scopes
-                //    Scopes = new Dictionary<string, string>
-                //        {
-                //            { "api1", "client" },
-                //        }
-                //});
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Copy and paste the Token in the 'Value:' field like this: Bearer {Token JWT}.",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement 
+                {
+                  {
+                    new OpenApiSecurityScheme
+                    {
+                       Reference = new OpenApiReference
+                       {
+                         Type = ReferenceType.SecurityScheme,
+                         Id = "Bearer"
+                       }
+                     },
+                     new string[] { }
+                  }
+                });
             });
         }
     }
