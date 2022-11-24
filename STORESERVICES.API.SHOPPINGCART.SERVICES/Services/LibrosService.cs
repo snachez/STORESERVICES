@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using STORESERVICES.API.SHOPPINGCART.SERVICES.DTO.Response;
 using STORESERVICES.API.SHOPPINGCART.SERVICES.Interfaces;
 using System;
@@ -15,9 +16,11 @@ namespace STORESERVICES.API.SHOPPINGCART.SERVICES.Services
     {
         private readonly IHttpClientFactory _httpClient;
         private readonly ILogger<LibrosService> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LibrosService(IHttpClientFactory httpClient, ILogger<LibrosService> logger)
+        public LibrosService(IHttpClientFactory httpClient, ILogger<LibrosService> logger, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _httpClient = httpClient;
             _logger = logger;
         }
@@ -26,7 +29,13 @@ namespace STORESERVICES.API.SHOPPINGCART.SERVICES.Services
         {
             try
             {
+                var httpContext = _httpContextAccessor.HttpContext;
+
+                // Read JWT
+                var jwt = httpContext.Request.Headers["Authorization"].ToString();
+
                 var cliente = _httpClient.CreateClient("Libros");
+                cliente.DefaultRequestHeaders.Add("Authorization", jwt);
                 var response = await cliente.GetAsync($"api/LibroMaterial/{LibroId}");
                 if (response.IsSuccessStatusCode)
                 {
