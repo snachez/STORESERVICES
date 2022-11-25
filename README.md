@@ -17,3 +17,6 @@ Servicio que puede crear y obtener por CartSessionId el carrito de compra
 
 # STORESERVICES.API.GATEWAY
 Servicio que sirve de puente de comunicacion entre los servicios y el frontend
+
+
+![health-check-status-ui](https://user-images.githubusercontent.com/31715033/204013078-710d1246-5b14-432e-b23c-a47f05c398d4.png)
