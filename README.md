@@ -1,7 +1,8 @@
 # STORESERVICES
 Servicio de compra de libros.
 <br />Cada servicio contiene su capa (MODEL, DAO, SERVICES, API)
-<br />El api gateway es con ocelot
+<br />El api gateway es con ocelot. ej: https://arbems.com/api-gateway-en-net-6-con-ocelot/
+<br />Se implemento el patron CQRS. ej: https://arbems.com/cqrs-mediatr-net-6/
 
 # STORESERVICES.API.AUTHOR
 Servicio que puede crear, obtener por AutorLibroGuid y obtener todos los autores 
