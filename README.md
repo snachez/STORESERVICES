@@ -9,7 +9,7 @@ Servicio de compra de libros.
 <br />
 <br />Se implemento como micro ORM a dapper. documentacion: https://github.com/DapperLib/Dapper y ej: https://arbems.com/dapper-ef-core-net-6/
 <br />
-<br />Se implemento FluentValidation para la validacion de los objetos de datos. ej: https://www.youtube.com/watch?v=RYJGfB6auuE&t=361s
+<br />Se implemento FluentValidation para la validacion de los modelos de datos. ej: https://www.youtube.com/watch?v=RYJGfB6auuE&t=361s
 
 # STORESERVICES.API.AUTHOR
 Servicio que puede crear, obtener por AutorLibroGuid y obtener todos los autores 
