@@ -1,9 +1,14 @@
 # STORESERVICES
 Servicio de compra de libros.
+<br />
 <br />Cada servicio contiene su capa (MODEL, DAO, SERVICES, API)
+<br />
 <br />El api gateway es con ocelot. ej: https://arbems.com/api-gateway-en-net-6-con-ocelot/
+<br />
 <br />Se implemento el patron CQRS. ej: https://arbems.com/cqrs-mediatr-net-6/
+<br />
 <br />Se implemento como micro ORM a dapper. documentacion: https://github.com/DapperLib/Dapper y ej: https://arbems.com/dapper-ef-core-net-6/
+<br />
 <br />Se implemento FluentValidation para la validacion de los objetos de datos. ej: https://www.youtube.com/watch?v=RYJGfB6auuE&t=361s
 
 # STORESERVICES.API.AUTHOR
